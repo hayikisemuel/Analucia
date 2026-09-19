@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celebración nocturna</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            background: #02030a;
+        }
+
+        .escena-vertical {
+            position: relative;
+            width: min(100vw, 56.25vh);
+            height: 100vh;
+            overflow: hidden;
+            background: radial-gradient(circle at 50% 110%, #172b5c 0%, #080f2f 45%, #020617 100%);
+        }
+
+        @media (min-width: 700px), (orientation: landscape) {
+            .escena-vertical {
+                width: 100vw;
+            }
+        }
+
+        .escena-vertical::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.7;
+            background-image: radial-gradient(circle, #ffffff 0 1px, transparent 1.5px), radial-gradient(circle, #aabaff 0 1px, transparent 1.5px);
+            background-position: 12% 18%, 76% 32%;
+            background-size: 125px 105px, 180px 145px;
+        }
+
+        .fuegos {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .fuego {
+            position: absolute;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #fff3a6;
+            box-shadow: 0 -44px #7ee8fa, 31px -31px #ffd166, 44px 0 #aabaff, 31px 31px #b794ff, 0 44px #7ee8fa, -31px 31px #aabaff, -44px 0 #ffd166, -31px -31px #b794ff;
+            animation: explotar 2.8s ease-out infinite;
+        }
+
+        .fuego-1 { top: 18%; left: 15%; }
+        .fuego-2 { top: 13%; right: 15%; animation-delay: 1.2s; }
+        .fuego-3 { bottom: 12%; left: 20%; animation-delay: 1.8s; transform: scale(0.65); }
+        .fuego-4 { right: 19%; bottom: 18%; animation-delay: 0.7s; transform: scale(0.75); }
+
+        .titulo-celebracion {
+            position: absolute;
+            top: 12%;
+            left: 50%;
+            z-index: 2;
+            width: 90%;
+            color: #ffd166;
+            font: 700 clamp(1.5rem, 5vw, 2.4rem) Georgia, serif;
+            letter-spacing: 0.04em;
+            text-align: center;
+            text-shadow: 0 3px 12px rgba(255, 209, 102, 0.35);
+            transform: translateX(-50%);
+            animation: brillo-titulo 2.2s ease-in-out infinite;
+        }
+
+        .globo {
+            position: absolute;
+            z-index: 2;
+            width: 44px;
+            height: 56px;
+            border-radius: 50% 50% 45% 45%;
+            box-shadow: inset -8px -8px 0 rgba(0, 0, 0, 0.12), 0 5px 12px rgba(0, 0, 0, 0.25);
+            animation: flotar 3s ease-in-out infinite;
+        }
+
+        .globo::after {
+            content: '';
+            position: absolute;
+            top: 54px;
+            left: 21px;
+            width: 1px;
+            height: 130px;
+            background: rgba(255, 255, 255, 0.55);
+        }
+
+        .globo-1 { left: 8%; top: 35%; background: #7ee8fa; }
+        .globo-2 { right: 8%; top: 38%; background: #7ee8fa; animation-delay: 0.8s; }
+        .globo-3 { left: 16%; bottom: 16%; background: #b794ff; animation-delay: 1.4s; }
+        .globo-4 { right: 16%; bottom: 14%; background: #ffd166; animation-delay: 2s; }
+
+        .pulgar-arriba {
+            position: absolute;
+            right: 7%;
+            bottom: 5%;
+            z-index: 3;
+            display: grid;
+            width: 58px;
+            height: 58px;
+            place-items: center;
+            border: 3px solid #ffd166;
+            border-radius: 50%;
+            background: #172b5c;
+            color: #ffd166;
+            font: 700 1.35rem 'Segoe UI', sans-serif;
+            box-shadow: 0 0 18px rgba(255, 209, 102, 0.4);
+            animation: pulso 1.8s ease-in-out infinite;
+        }
+
+        .imagen-celebracion {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            z-index: 2;
+            width: min(280px, 72vw);
+            max-height: 48vh;
+            object-fit: contain;
+            border-radius: 12px;
+            transform: translateX(-50%);
+            mix-blend-mode: normal;
+            filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.28));
+        }
+
+        @keyframes brillo-titulo {
+            0%, 100% { opacity: 0.82; transform: translateX(-50%) scale(1); }
+            50% { opacity: 1; transform: translateX(-50%) scale(1.04); }
+        }
+
+        @keyframes flotar {
+            0%, 100% { transform: translateY(0) rotate(-3deg); }
+            50% { transform: translateY(-12px) rotate(3deg); }
+        }
+
+        @keyframes pulso {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        @keyframes explotar {
+            0%, 100% { opacity: 0; transform: scale(0.15); }
+            12% { opacity: 1; transform: scale(0.75); }
+            58% { opacity: 0.9; transform: scale(1); }
+            80% { opacity: 0; transform: scale(1.2); }
+        }
+
+    </style>
+</head>
+<body>
+    <div class="escena-vertical">
+        <div class="fuegos" aria-hidden="true">
+            <span class="fuego fuego-1"></span>
+            <span class="fuego fuego-2"></span>
+            <span class="fuego fuego-3"></span>
+            <span class="fuego fuego-4"></span>
+        </div>
+        <div class="titulo-celebracion">FELIZ CUMPLEAÑOS</div>
+        <div class="globo globo-1" aria-hidden="true"></div>
+        <div class="globo globo-2" aria-hidden="true"></div>
+        <div class="globo globo-3" aria-hidden="true"></div>
+        <div class="globo globo-4" aria-hidden="true"></div>
+        <div class="pulgar-arriba" aria-label="Pulgar arriba">+1</div>
+        <img class="imagen-celebracion" src="7ef6fd5141d223f16101b4a50f9ca08f.jpg" alt="Snoopy con pastel de cumpleaños">
+    </div>
+
+</body>
+</html>
